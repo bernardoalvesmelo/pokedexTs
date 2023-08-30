@@ -1,0 +1,83 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+
+  font-family: 'Segoe UI', sans-serif;
+
+  background-color: #313131;
+
+  margin: 0;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #f9f9f9;
+}
+
+.descricao {
+  font-size: 22px;
+  font-weight: 600;
+  color: #f9f9f9;
+}
+
+.container-formulario {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.pesquisa {
+  outline: 1px solid #f9f9f9 important;
+
+  border:none;
+  border-radius: 10px;
+
+  font-size: 18px;
+
+  padding: 5px;
+}
+
+.btn {
+  display: grid;
+  padding: 15px;
+
+  border: none;
+  border-radius: 10px;
+}
+
+.btn:hover {
+  opacity: 0.9;
+  cursor: pointer;
+  outline: 1px solid #ffffff;
+}
+
+.btn-pesquisar {
+  background-color: #4DAD5B;
+  color: white;
+}
+
+.btn-limpar {
+  background-color: #DA471B;
+  color: white;
+}
+
+.card-pokemon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  max-width: 350px;
+  height: 450px;
+
+  background-color: #e1e1e1;
+  color: #313131;
+
+  border-radius: 1rem;
+
+  margin-top: 5%;
+}
