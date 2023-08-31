@@ -17,6 +17,22 @@ class TelaInicio {
         this.registrarEventos();
 
         this.pokemonService = new PokemonService();
+
+        this.pokemonService.selecionarPokemons()
+            .then((pokemons) => this.gerarGridPokemons(pokemons));
+    }
+
+    gerarGridPokemons(pokemons: Pokemon[]): any {
+        const pnlGrid = document.createElement('div');
+        pnlGrid.classList.add('grid-pokemons');
+
+        for( let pokemon of pokemons) {
+            const card = this.obterCard(pokemon);
+        
+            pnlGrid.appendChild(card);
+        }
+
+        this.pnlConteudo.appendChild(pnlGrid);
     }
 
     registrarElementos() {
@@ -51,7 +67,7 @@ class TelaInicio {
     pesquisarPokemonPorNome(nome: string) {
         this.pokemonService.selecionarPokemonPorNome(nome)
         .then(pokemon => this.gerarCard(pokemon))
-        .catch(erro => console.log('Pokemon não encontrado', erro));
+        .catch((erro: Error) => this.exibirNotificacao(erro));
     }
 
     gerarCard(pokemon: Pokemon): void {
@@ -64,6 +80,35 @@ class TelaInicio {
         this.pnlConteudo.appendChild(pnlPokemon);
     }
 
+    obterCard(pokemon: Pokemon): HTMLDivElement {
+        const pnlPokemon = document.createElement('div');
+        pnlPokemon.className = 'pnlPokemon';
+        pnlPokemon.innerHTML = 
+            `<h2>${pokemon.nome}</h2>
+            <p>${pokemon.id}</p>
+            <img src=${pokemon.spriteUrl}>`;
+
+        return pnlPokemon;
+    }
+
+
+    exibirNotificacao(erro: Error): void {
+        const divNotificacao = document.createElement('div');
+
+        divNotificacao.textContent = erro.message;
+        divNotificacao.classList.add('notificacao');
+
+        divNotificacao
+        .addEventListener('click', (sender: Event) => {
+            (sender.target as HTMLElement).remove()
+        });
+
+        document.body.appendChild(divNotificacao);
+        
+        setTimeout(() => {
+            divNotificacao.remove();
+        }, 5000);
+    }
 
     limparCard(): void {
         const pokemon = document.getElementById('pnlPokemon');
