@@ -89,6 +89,11 @@ h1 {
   width: 150px;
 }
 
+.pnlPokemon:hover {
+  cursor: pointer;
+  outline: 1px solid blue;
+}
+
 .grid-pokemons {
   width: 80%;
   display: flex;

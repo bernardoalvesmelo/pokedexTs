@@ -1,9 +1,8 @@
+import { Pokemon } from "../../models/pokemon";
+import { PokemonService } from "../../services/pokemonApi.service";
+import './pokemon-detalhes.css';
 
-import { Pokemon } from '../models/pokemon';
-import { PokemonService } from '../services/pokemonApi.service';
-import './styles.css';
-
-class TelaInicio {
+class PokemonDetalhes {
     txtPesquisa: HTMLInputElement;
     formPrincipal: HTMLFormElement;
     btnLimpar: HTMLButtonElement;
@@ -18,27 +17,17 @@ class TelaInicio {
 
         this.pokemonService = new PokemonService();
 
-        this.pokemonService.selecionarPokemons()
-            .then((pokemons) => this.gerarGridPokemons(pokemons));
+        const url = new URLSearchParams(window.location.search);
+        const nome = url.get('nome') as string;
+
+        this.pesquisarPokemonPorNome(nome);
     }
 
-    gerarGridPokemons(pokemons: Pokemon[]): any {
-        const pnlGrid = document.createElement('div');
-        pnlGrid.classList.add('grid-pokemons');
-
-        for( let pokemon of pokemons) {
-            const card = this.obterCard(pokemon);
-        
-            pnlGrid.appendChild(card);
-        }
-
-        this.pnlConteudo.appendChild(pnlGrid);
-    }
 
     registrarElementos() {
         this.txtPesquisa = document.getElementById('txtPesquisa') as HTMLInputElement;
         this.formPrincipal = document.getElementById('formPrincipal') as HTMLFormElement;
-
+        this.btnLimpar= document.getElementById('btnLimpar') as HTMLButtonElement;
         this.btnPesquisar = document.getElementById('btnPesquisar') as HTMLButtonElement;
         this.pnlConteudo = document.getElementById('pnlConteudo') as HTMLDivElement;
     }
@@ -47,12 +36,15 @@ class TelaInicio {
         this.formPrincipal
         .addEventListener('submit', (sender) => this.buscar(sender));
 
+        this.btnLimpar
+        .addEventListener('click', () => this.limparCard());
     }
 
     buscar(sender: SubmitEvent): void {
         sender.preventDefault();
         
-        
+        this.limparCard();
+
         const nome = this.txtPesquisa.value;
 
         this.pesquisarPokemonPorNome(nome);
@@ -60,12 +52,8 @@ class TelaInicio {
 
     pesquisarPokemonPorNome(nome: string) {
         this.pokemonService.selecionarPokemonPorNome(nome)
-        .then(pokemon => this.redirecionarUsuario(pokemon.nome))
+        .then(pokemon => this.gerarCard(pokemon))
         .catch((erro: Error) => this.exibirNotificacao(erro));
-    }
-
-    redirecionarUsuario(nome: string): any {
-        window.location.href = 'pokemon-detalhes.html?nome=' + nome;
     }
 
     gerarCard(pokemon: Pokemon): void {
@@ -86,10 +74,6 @@ class TelaInicio {
             <p>${pokemon.id}</p>
             <img src=${pokemon.spriteUrl}>`;
 
-
-        pnlPokemon.addEventListener('click', (sender) => {
-            window.location.href = `pokemon-detalhes.html?nome=${pokemon.nome}`
-        })
         return pnlPokemon;
     }
 
@@ -120,4 +104,4 @@ class TelaInicio {
     }
 }
 
-window.addEventListener('load', () => new TelaInicio());
+window.addEventListener('load', () => new PokemonDetalhes());
