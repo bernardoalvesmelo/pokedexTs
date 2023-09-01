@@ -1,4 +1,3 @@
-
 import { Pokemon } from '../models/pokemon';
 import { PokemonService } from '../services/pokemonApi.service';
 import './styles.css';
@@ -110,13 +109,6 @@ class TelaInicio {
         setTimeout(() => {
             divNotificacao.remove();
         }, 5000);
-    }
-
-    limparCard(): void {
-        const pokemon = document.getElementById('pnlPokemon');
-        if (pokemon) {
-            this.pnlConteudo.removeChild(pokemon);
-        }
     }
 }
 

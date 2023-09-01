@@ -27,7 +27,7 @@ class PokemonDetalhes {
     registrarElementos() {
         this.txtPesquisa = document.getElementById('txtPesquisa') as HTMLInputElement;
         this.formPrincipal = document.getElementById('formPrincipal') as HTMLFormElement;
-        this.btnLimpar= document.getElementById('btnLimpar') as HTMLButtonElement;
+        this.btnLimpar = document.getElementById('btnLimpar') as HTMLButtonElement;
         this.btnPesquisar = document.getElementById('btnPesquisar') as HTMLButtonElement;
         this.pnlConteudo = document.getElementById('pnlConteudo') as HTMLDivElement;
     }
@@ -66,17 +66,6 @@ class PokemonDetalhes {
         this.pnlConteudo.appendChild(pnlPokemon);
     }
 
-    obterCard(pokemon: Pokemon): HTMLDivElement {
-        const pnlPokemon = document.createElement('div');
-        pnlPokemon.className = 'pnlPokemon';
-        pnlPokemon.innerHTML = 
-            `<h2>${pokemon.nome}</h2>
-            <p>${pokemon.id}</p>
-            <img src=${pokemon.spriteUrl}>`;
-
-        return pnlPokemon;
-    }
-
 
     exibirNotificacao(erro: Error): void {
         const divNotificacao = document.createElement('div');
@@ -97,9 +86,9 @@ class PokemonDetalhes {
     }
 
     limparCard(): void {
-        const pokemon = document.getElementById('pnlPokemon');
+        const pokemon = document.querySelector('.pnlPokemon') as HTMLDivElement;
         if (pokemon) {
-            this.pnlConteudo.removeChild(pokemon);
+            pokemon.remove();
         }
     }
 }
