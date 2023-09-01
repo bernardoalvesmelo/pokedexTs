@@ -30,7 +30,7 @@ export class PokemonService {
         return {
             id: obj.id,
             nome: obj.name,
-            spriteUrl: obj.sprites.front_default
+            spriteUrl: obj.sprites.other['official-artwork'].front_default
         }
     }
 

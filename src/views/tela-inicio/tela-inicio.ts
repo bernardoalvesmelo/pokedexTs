@@ -1,6 +1,7 @@
-import { Pokemon } from '../models/pokemon';
-import { PokemonService } from '../services/pokemonApi.service';
-import './styles.css';
+
+import { Pokemon } from '../../models/pokemon';
+import { PokemonService } from '../../services/pokemonApi.service';
+import './tela-inicio.css';
 
 class TelaInicio {
     txtPesquisa: HTMLInputElement;

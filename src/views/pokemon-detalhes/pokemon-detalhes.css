@@ -122,3 +122,8 @@ body {
     opacity: 0.9;
     cursor: pointer;
   }
+
+  img {
+    max-width: 96px;
+    max-height: 96px;
+  }
